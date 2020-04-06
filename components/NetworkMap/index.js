@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Graph from 'react-graph-vis'
 
-// import dummyData from './dummyData.js'
+import dummyData from './dummyData.js'
 // import dumpedRows from '../../dump'
 // import jsonToGraph from '../../utils/parse'
 
@@ -32,21 +32,9 @@ const NetworkMap = () => {
   // const graph = jsonToGraph(dumpedRows)
 
   const [isLoading, setIsLoading] = useState(true)
-  const [graph, setGraph] = useState({ nodes: [], edges: [] })
+  const [graph, setGraph] = useState({ nodes: [], edges: [] });
 
-  useEffect(() => {
-    fetch('/api/graph', {
-      method: 'GET',
-      redirect: 'follow',
-    })
-      .then(resp => resp.json())
-      .then(data => {
-        console.log(data)
-        setGraph(data)
-        setIsLoading(false)
-      })
-      .catch(err => console.log('error', err))
-  }, [])
+
 
   const options = {
     layout: {
@@ -59,16 +47,14 @@ const NetworkMap = () => {
   }
 
   const events = {
-    select: function(event) {
+    select: function (event) {
       var { nodes, edges } = event
     },
   }
 
   return (
     <div style={{ height: '100vh', width: '100vw' }}>
-      {isLoading ? null : (
-        <Graph graph={graph} options={options} events={events} />
-      )}
+      <Graph graph={dummyData} options={options} events={events} />
     </div>
   )
 }
